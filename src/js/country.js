@@ -4,8 +4,6 @@ class Country {
     this.input = document.querySelector('#inputText');
     this.list = document.querySelector('#root');
     this.init();
-    this.fetchСountries();
-    this.debounce;
   }
 
   init() {
@@ -20,8 +18,22 @@ class Country {
     console.log('fetchСountries');
     console.log(this.input.value);
     this.url = `https://restcountries.eu/rest/v2/name/${this.input.value}`;
-    fetch(this.url).then(res => console.log(res));
+
+    fetch(this.url)
+      .then(res => res.json())
+      .then(data => {
+        data, console.log(data), this.renderData(data);
+      });
   }
+  renderData = arrData => {
+    let dataCollection = arrData.map(({ name }) => {
+      let p = document.createElement('p');
+
+      p.textContent = name;
+      return p;
+    });
+    this.list.append(...dataCollection);
+  };
 }
 let _ = require('lodash');
 new Country();
