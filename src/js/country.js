@@ -7,7 +7,7 @@ class Country {
   }
 
   init() {
-    console.log('init');
+    // console.log('init');
     this.input.addEventListener(
       'input',
       _.debounce(this.fetchСountries.bind(this), 500),
@@ -15,17 +15,27 @@ class Country {
   }
 
   fetchСountries() {
-    console.log('fetchСountries');
-    console.log(this.input.value);
+    // console.log('fetchСountries');
+    // console.log(this.input.value);
     this.url = `https://restcountries.eu/rest/v2/name/${this.input.value}`;
 
     fetch(this.url)
       .then(res => res.json())
       .then(data => {
         this.renderData(data);
-      });
+      })
+      .catch(err =>
+        //   notice({
+        //     text: 'Please enter the country',
+        //   }),
+        this.removeData(),
+      );
   }
   renderData = arrData => {
+    // console.log(this);
+    if (this.input.value === 0) {
+      this.removeData();
+    }
     if (arrData.length > 2 && arrData.length < 10) {
       arrData.map(({ name }) => {
         this.list.insertAdjacentHTML(
@@ -54,6 +64,10 @@ class Country {
       });
     }
   };
+  removeData() {
+    console.log('removeData');
+    this.list.innerHTML = '';
+  }
 }
 let _ = require('lodash');
 import { notice } from '@pnotify/core';
