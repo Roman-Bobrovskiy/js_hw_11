@@ -10,7 +10,7 @@ class Country {
     // console.log('init');
     this.input.addEventListener(
       'input',
-      _.debounce(this.fetchСountries.bind(this), 500),
+      _.debounce(this.fetchСountries.bind(this), 800),
     );
   }
 
@@ -55,7 +55,7 @@ class Country {
 
         this.list.insertAdjacentHTML(
           'beforeend',
-          `<li class ="flag"> <img class="gallery__image" src="${flag}"  alt=""/></li>
+          `<li class ="flag"> <img class="flag__image" src="${flag}"  alt=""/></li>
              <li class="text"> Country: ${name}</li>
              <li class="text"> Capital: ${capital}</li>
              <li class="text"> Population: ${population}</li>

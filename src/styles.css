@@ -1,1 +1,13 @@
-
+li {
+  list-style-type: none;
+}
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+.flag__image {
+  width: 300px;
+}
+body {
+  background-color: #5c6d7d;
+}
