@@ -22,20 +22,22 @@ class Country {
     fetch(this.url)
       .then(res => res.json())
       .then(data => {
-        data, console.log(data), this.renderData(data);
+        this.renderData(data);
       });
   }
   renderData = arrData => {
     if (arrData.length > 2 && arrData.length < 10) {
-      let dataCollection = arrData.map(({ name }) => {
-        let p = document.createElement('p');
-        p.textContent = name;
-        return p;
+      arrData.map(({ name }) => {
+        this.list.insertAdjacentHTML(
+          'beforeend',
+          `<li class="text"> Country: ${name}</li>`,
+        );
       });
-      this.list.append(...dataCollection);
     }
     if (arrData.length > 10) {
-      alert('More than 10');
+      const myNotice = notice({
+        text: 'Need to make the request more specific',
+      });
     }
     if (arrData.length === 1) {
       arrData.map(({ name, capital, population, languages, flag }) => {
@@ -54,4 +56,6 @@ class Country {
   };
 }
 let _ = require('lodash');
+import { notice } from '@pnotify/core';
+
 new Country();
