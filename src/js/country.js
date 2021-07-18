@@ -7,16 +7,13 @@ class Country {
   }
 
   init() {
-    // console.log('init');
     this.input.addEventListener(
       'input',
-      _.debounce(this.fetchСountries.bind(this), 800),
+      _.debounce(this.fetchСountries.bind(this), 500),
     );
   }
 
   fetchСountries() {
-    // console.log('fetchСountries');
-    // console.log(this.input.value);
     this.url = `https://restcountries.eu/rest/v2/name/${this.input.value}`;
 
     fetch(this.url)
@@ -24,19 +21,12 @@ class Country {
       .then(data => {
         this.renderData(data);
       })
-      .catch(err =>
-        //   notice({
-        //     text: 'Please enter the country',
-        //   }),
-        this.removeData(),
-      );
+      .catch(err => this.removeData());
   }
+
   renderData = arrData => {
-    // console.log(this);
-    if (this.input.value === 0) {
-      this.removeData();
-    }
     if (arrData.length > 2 && arrData.length < 10) {
+      this.removeData();
       arrData.map(({ name }) => {
         this.list.insertAdjacentHTML(
           'beforeend',
@@ -45,14 +35,15 @@ class Country {
       });
     }
     if (arrData.length > 10) {
+      this.removeData();
       const myNotice = notice({
         text: 'Need to make the request more specific',
       });
     }
     if (arrData.length === 1) {
+      this.removeData();
       arrData.map(({ name, capital, population, languages, flag }) => {
         let objLanguages = languages.map(elem => elem.name);
-
         this.list.insertAdjacentHTML(
           'beforeend',
           `<li class ="flag"> <img class="flag__image" src="${flag}"  alt=""/></li>
@@ -64,8 +55,8 @@ class Country {
       });
     }
   };
+
   removeData() {
-    console.log('removeData');
     this.list.innerHTML = '';
   }
 }
