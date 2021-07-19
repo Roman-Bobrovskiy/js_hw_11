@@ -9,5 +9,6 @@ ul {
   width: 300px;
 }
 body {
-  background-color: #5c6d7d;
+  /* background-color: #5c6d7d; */
+  background-image: url(/images/background.jpg);
 }
